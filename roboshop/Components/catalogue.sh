@@ -43,7 +43,7 @@ status $?
 
 echo "Copy the ${COMPONENT} to ${APPUSER} home directory"
 
-cd /home/${APPUSER}
+cd /home/${APPUSER}/
 unzip /tmp/${COMPONENT}.zip &>> $LOGFILE
 mv ${COMPONENT}-main ${COMPONENT} &>> $LOGFILE
 chown -R ${APPUSER}:${APPUSER} /home/roboshop/${COMPONENT} &>> $LOGFILE
