@@ -31,7 +31,7 @@ status $?
 
 id ${APPUSER} &>> $LOGFILE
 
-if [ $? ne 0 ]; then
+if [ $? -ne 0 ]; then
 echo "Create a service account"
 useradd roboshop
 fi
@@ -42,7 +42,6 @@ curl -s -L -o /tmp/catalogue.zip "https://github.com/stans-robot-project/catalog
 status $?
 
 echo "Copy the ${COMPONENT} to ${APPUSER} home directory"
-
 cd /home/${APPUSER}/
 unzip /tmp/${COMPONENT}.zip &>> $LOGFILE
 mv ${COMPONENT}-main ${COMPONENT} &>> $LOGFILE
