@@ -32,7 +32,7 @@ status $?
 echo "Update the ${COMPONENT} BindIP"
 
 sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/${COMPONENT}.conf &>> $LOGFILE
-sed -i -e 's/127.0.0.1/0.0.0.0/' //etc/redis/${COMPONENT}.conf &>> $LOGFILE
+sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/redis/${COMPONENT}.conf &>> $LOGFILE
 status $?
 
 echo "Updated Systemctl"
