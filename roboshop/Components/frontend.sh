@@ -45,7 +45,7 @@ mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
 status $?
 
 
-for component user in catalogue; do
+for component  in catalogue user; do
 sed -i -e "/$component/s/localhost/172.31.84.24/" e "/$component/s/localhost/172.31.82.55/" /etc/nginx/default.d/roboshop.conf
 done
 status $?
