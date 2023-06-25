@@ -45,9 +45,43 @@ echo "Copy the ${COMPONENT} to ${APPUSER} home directory"
 cd /home/${APPUSER}/
 rm -rf ${COMPONENT} &>> $LOGFILE
 unzip /tmp/${COMPONENT}.zip &>> $LOGFILE
+status $?
+
+echo "Modifying the owner ship"
 mv ${COMPONENT}-main ${COMPONENT} &>> $LOGFILE
 chown -R ${APPUSER}:${APPUSER} /home/roboshop/${COMPONENT} &>> $LOGFILE
 status $?
+
+echo "Installing ${COMPONENT} module"
+cd /home/${APPUSER}/${COMPONENT}/ &>> $LOGFILE
+npm install &>> $LOGFILE
+status $?
+
+echo "update the ${COMPONENT} systemd file"
+sed -i -e 's/MONGO_DNSNAME/172.31.88.111/' /home/${APPUSER}/${COMPONENT}/systemd.service &>> $LOGFILE
+mv /home/${APPUSER}/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>> $LOGFILE
+status $?
+
+
+for component in catalogue; do
+sed -i -e "/$component/s/localhost/172.31.84.24/" /etc/nginx/default.d/roboshop.conf
+done
+status $?
+
+echo "Now, lets set up the service with systemctl"
+
+systemctl daemon-reload &>> $LOGFILE
+systemctl restart ${COMPONENT} &>> $LOGFILE
+systemctl enable ${COMPONENT} &>> $LOGFILE
+systemctl status ${COMPONENT} -l &>> $LOGFILE
+status $?
+
+echo "Installatio is completed successfully"
+
+
+
+
+
 
 
 
