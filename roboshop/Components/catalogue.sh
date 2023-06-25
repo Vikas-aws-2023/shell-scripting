@@ -67,7 +67,7 @@ echo "Now, lets set up the service with systemctl"
 systemctl daemon-reload &>> $LOGFILE
 systemctl restart ${COMPONENT} &>> $LOGFILE
 systemctl enable ${COMPONENT} &>> $LOGFILE
-systemctl status ${COMPONENT} -l &>> $LOGFILE
+systemctl status ${COMPONENT} -l
 status $?
 
 echo "Installation is completed successfully"
