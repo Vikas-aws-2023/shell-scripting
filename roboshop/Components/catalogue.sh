@@ -62,12 +62,6 @@ sed -i -e 's/MONGO_DNSNAME/172.31.88.111/' /home/${APPUSER}/${COMPONENT}/systemd
 mv /home/${APPUSER}/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>> $LOGFILE
 status $?
 
-
-for component in catalogue; do
-sed -i -e "/$component/s/localhost/172.31.84.24/" /etc/nginx/default.d/roboshop.conf
-done
-status $?
-
 echo "Now, lets set up the service with systemctl"
 
 systemctl daemon-reload &>> $LOGFILE
@@ -76,7 +70,7 @@ systemctl enable ${COMPONENT} &>> $LOGFILE
 systemctl status ${COMPONENT} -l &>> $LOGFILE
 status $?
 
-echo "Installatio is completed successfully"
+echo "Installation is completed successfully"
 
 
 

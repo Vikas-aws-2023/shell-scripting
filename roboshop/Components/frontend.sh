@@ -44,10 +44,18 @@ mv localhost.conf /etc/nginx/default.d/roboshop.conf &>> $LOGFILE
 
 status $?
 
-echo "Start the service for ${COMPONENT} component"
-systemctl enable nginx
-systemctl start nginx
+
+for component in catalogue; do
+sed -i -e "/$component/s/localhost/172.31.84.24/" /etc/nginx/default.d/roboshop.conf
+done
 status $?
+
+
+echo "Start the service for ${COMPONENT} component"
+systemctl restart nginx
+systemctl enable nginx
+status $?
+echo "Fontend installation completed successfully"
 
 
 
