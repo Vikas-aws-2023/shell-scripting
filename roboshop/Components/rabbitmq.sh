@@ -1,3 +1,5 @@
+#!/bin/bash
+
 COMPONENT=rabbitmq
 LOGFILE="/tmp/${COMPONENT}.log"
 ID=$(id -u)
