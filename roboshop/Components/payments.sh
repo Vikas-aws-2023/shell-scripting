@@ -31,7 +31,7 @@ fi
 status $?
 
 echo "Donwloading the component"
-curl -L -s -o /tmp/payment.zip "https://github.com/stans-robot-project/payment/archive/main.zip"
+curl -L -s -o /tmp/payment.zip "https://github.com/stans-robot-project/payment/archive/main.zip" &>> $LOGFILE
 status $?
 
 echo "Copy the ${COMPONENT} to ${APPUSER} home directory"
@@ -47,6 +47,6 @@ status $?
 
 
 echo "Install the dependecies fro ${COMPONENT} component"
-cd /home/${APPUSER}/${COMPONENT}
-pip3 install -r requirements.txt
+cd /home/${APPUSER}/${COMPONENT} &>> $LOGFILE
+pip3 install -r requirements.txt &>> $LOGFILE
 status $?
