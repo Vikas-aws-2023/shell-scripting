@@ -17,26 +17,26 @@ status(){
 }
 
 echo "${COMPONENT} dependency"
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | sudo bash
-curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | sudo bash &>> $LOGFILE
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash &>> $LOGFILE
 status $?
 
 echo "Install ${COMPONENT}"
-yum install rabbitmq-server -y
+yum install rabbitmq-server -y &>> $LOGFILE
 status $?
 
 echo "Start ${COMPONENT}"
-systemctl enable rabbitmq-server
-systemctl start rabbitmq-server
-systemctl status rabbitmq-server -l
+systemctl enable rabbitmq-server &>> $LOGFILE
+systemctl start rabbitmq-server &>> $LOGFILE
+systemctl status rabbitmq-server -l &>> $LOGFILE
 status $?
 
 echo "creating ${COMPONENT} ${APPUSER}"
-rabbitmqctl add_user roboshop roboshop123
+rabbitmqctl add_user roboshop roboshop123 &>> $LOGFILE
 status $?
 
 echo "Configure the previlizes for ${COMPONENT} ${APPUSER}"
-rabbitmqctl set_user_tags roboshop administrator
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+rabbitmqctl set_user_tags roboshop administrator &>> $LOGFILE
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGFILE
 status $?
 
