@@ -55,7 +55,7 @@ USERID=$(id -u roboshop)
 GROUPID=$(id -u roboshop)
 
 echo "Update uid and gid for ${COMPONENT}.ini file"
-sed -i -e "/^uid/c uid=${USERID}/" -e "/^gid/c gid=${GROUPID}/" cd /home/${APPUSER}/${COMPONENT}/${COMPONENT}.ini &>> $LOGFILE
+sed -i -e "/^uid/c uid=${USERID}" -e "/^gid/c gid=${GROUPID}" cd /home/${APPUSER}/${COMPONENT}/${COMPONENT}.ini &>> $LOGFILE
 status $?
 
 echo "update the ${COMPONENT} systemd file"
