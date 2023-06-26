@@ -29,8 +29,8 @@ echo "Starting ${COMPONENT} component"
 systemctl enable mysqld
 systemctl start mysqld
 status $?
-
 echo "Fetch the default root password"
-DEFAULT_ROOT_PASSWORD= $(grep 'temporary password' /var/log/mysqld.log | awk '{print $NF}') &>> $LOGFILE
-echo "Default Password is = ${DEFAULT_ROOT_PASSWORD}" 
+DEFAULT_ROOT_PASSWORD=$(grep 'temporary password' /var/log/mysqld.log | awk  '{print $NF}') &>> $LOGFILE
+
+echo "Default Password is = ${DEFAULT_ROOT_PASSWORD}"
 status $?
