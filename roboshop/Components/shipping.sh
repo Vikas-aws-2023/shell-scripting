@@ -1,4 +1,4 @@
-COMPONENT=catalogue
+COMPONENT=shipping
 LOGFILE="/tmp/${COMPONENT}.log"
 ID=$(id -u)
 APPUSER="roboshop"
@@ -47,9 +47,9 @@ chown -R ${APPUSER}:${APPUSER} /home/roboshop/${COMPONENT} &>> $LOGFILE
 status $?
 
 echo "Prepare the ${COMPONENT} artifact"
-cd /home/${APPUSER}/${COMPONENT}
-mvn clean package
-mv target/shipping-1.0.jar shipping.jar
+cd /home/${APPUSER}/${COMPONENT} &>> $LOGFILE
+mvn clean package &>> $LOGFILE
+mv target/shipping-1.0.jar shipping.jar &>> $LOGFILE
 status $?
 
 echo "update the ${COMPONENT} systemd file"
