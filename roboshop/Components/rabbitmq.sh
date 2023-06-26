@@ -31,12 +31,18 @@ systemctl start rabbitmq-server &>> $LOGFILE
 systemctl status rabbitmq-server -l &>> $LOGFILE
 status $?
 
+rabbitmqctl list_users | grep roboshop &>> $LOGFILE
+
+if [ $? -ne 0 ]; then
 echo "creating ${COMPONENT} ${APPUSER}"
 rabbitmqctl add_user roboshop roboshop123 &>> $LOGFILE
 status $?
+fi
 
 echo "Configure the previlizes for ${COMPONENT} ${APPUSER}"
 rabbitmqctl set_user_tags roboshop administrator &>> $LOGFILE
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LOGFILE
 status $?
+
+echo "${COMPONENT}  instalation is completed successfully"
 
