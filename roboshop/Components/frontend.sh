@@ -46,7 +46,7 @@ status $?
 
 
 echo "Update the config file"
-sed -i -e "/catalogue/s/localhost/172.31.84.24/" -e "/user/s/localhost/172.31.82.55/" -e "/cart/s/localhost/172.31.89.15/" -e "/shipping/s/localhost/172.31.86.19/" /etc/nginx/default.d/roboshop.conf
+sed -i -e "/catalogue/s/localhost/172.31.84.24/" -e "/user/s/localhost/172.31.82.55/" -e "/cart/s/localhost/172.31.89.15/" -e "/shipping/s/localhost/172.31.86.19/" -e "/payment/s/localhost/172.31.92.192/" /etc/nginx/default.d/roboshop.conf
 status $?
 
 

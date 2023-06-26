@@ -50,3 +50,25 @@ echo "Install the dependecies fro ${COMPONENT} component"
 cd /home/${APPUSER}/${COMPONENT} &>> $LOGFILE
 pip3 install -r requirements.txt &>> $LOGFILE
 status $?
+
+USERID=$(id -u roboshop)
+GROUPID=$(id -u roboshop)
+
+echo "Update uid and gid for ${COMPONENT}.ini file"
+sed -i -e "/^uid/c uid=${USERID}/" -e "/^gid/c gid=${GROUPID}/" cd /home/${APPUSER}/${COMPONENT}/${COMPONENT}.ini &>> $LOGFILE
+status $?
+
+echo "update the ${COMPONENT} systemd file"
+sed -i -e 's/CARTHOST/172.31.89.15/' -e 's/USERHOST/172.31.82.55/' -e 's/AMQPHOST/172.31.91.5/' /home/${APPUSER}/${COMPONENT}/systemd.service &>> $LOGFILE
+mv /home/${APPUSER}/${COMPONENT}/systemd.service /etc/systemd/system/${COMPONENT}.service &>> $LOGFILE
+status $?
+
+echo "Now, lets set up the service with systemctl"
+
+systemctl daemon-reload &>> $LOGFILE
+systemctl restart ${COMPONENT} &>> $LOGFILE
+systemctl enable ${COMPONENT} &>> $LOGFILE
+systemctl status ${COMPONENT} -l &>> $LOGFILE
+status $?
+
+echo "Installation is completed successfully"
