@@ -46,8 +46,24 @@ fi
 echo "show plugins;" | mysql -uroot -pRoboShop@1 | grep validate_password &>> $LOGFILE
 if [ $? -eq 0 ]; then
 echo "UNINSTALL PLUGIN validate_password;" | mysql -uroot -pRoboShop@1 &>> $LOGFILE
-
 status $?
 fi
+
+
+echo "Downloading the ${COMPONENT} schema"
+curl -s -L -o /tmp/mysql.zip "https://github.com/stans-robot-project/mysql/archive/main.zip"
+status $?
+
+echo "Extract the schema"
+cd /tmp
+unzip -o /tmp/${COMPONENT}.zip
+status $?
+
+echo "Inject the schema"
+cd ${COMPONENT}-main
+mysql -u root -pRoboShop@1 <shipping.sql
+status $?
+
+
 
 
