@@ -52,7 +52,7 @@ pip3 install -r requirements.txt &>> $LOGFILE
 status $?
 
 USERID=$(id -u roboshop)
-GROUPID=$(id -u roboshop)
+GROUPID=$(id -g roboshop)
 
 echo "Update uid and gid for ${COMPONENT}.ini file"
 sed -i -e "/^uid/ c uid=${USERID}" -e "/^gid/ c gid=${GROUPID}" cd /home/${APPUSER}/${COMPONENT}/${COMPONENT}.ini &>> $LOGFILE
