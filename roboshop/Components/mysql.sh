@@ -51,17 +51,17 @@ fi
 
 
 echo "Downloading the ${COMPONENT} schema"
-curl -s -L -o /tmp/mysql.zip "https://github.com/stans-robot-project/mysql/archive/main.zip"
+curl -s -L -o /tmp/mysql.zip "https://github.com/stans-robot-project/mysql/archive/main.zip" &>> $LOGFILE
 status $?
 
 echo "Extract the schema"
 cd /tmp
-unzip -o /tmp/${COMPONENT}.zip
+unzip -o /tmp/${COMPONENT}.zip &>> $LOGFILE
 status $?
 
 echo "Inject the schema"
 cd ${COMPONENT}-main
-mysql -u root -pRoboShop@1 <shipping.sql
+mysql -u root -pRoboShop@1 <shipping.sql &>> $LOGFILE
 status $?
 
 
