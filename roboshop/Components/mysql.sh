@@ -42,3 +42,12 @@ echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1'; " | mysql --conn
 status $?
 fi
 
+
+echo "show plugins;" | mysql -uroot -pRoboShop@1 | grep validate_password &>> $LOGFILE
+if [ $? -eq 0 ]; then
+echo "UNINSTALL PLUGIN validate_password;" | mysql -uroot -pRoboShop@1 &>> $LOGFILE
+
+status $?
+fi
+
+
